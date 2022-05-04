@@ -4,12 +4,19 @@ import mongoose from 'mongoose'
 import cors from 'cors';
 import 'dotenv/config';
 
+import postRouter from './routes/posts.js';
+
 const app = express();
+
+app.use('/posts', postRouter);
 
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 
-const CONNECTION_URL = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.oygff.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const username = process.env.MONGODB_USERNAME;
+const password = process.env.MONGODB_PASSWORD;
+
+const CONNECTION_URL = `mongodb+srv://${username}:${password}@cluster0.oygff.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 const PORT = process.env.PORT || 5000;
 
 // mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
